@@ -12,11 +12,12 @@ class Game:
     def generate_word(self, file):
         with open(file) as f:
             words_list = f.read().splitlines()
-            print(words_list)
-        word = random.choice(words_list)
-        print(word)
+            # print(words_list)
+        words = random.choice(words_list)
+        word = words.lower()
+        # print(word)
         letters = [letter for letter in word]
-        print(letters)
+        # print(letters)
         word_length = len(letters)
         print(word_length)
         # self.show_blanks(word)
@@ -41,7 +42,12 @@ class Game:
                     print(show_blanks)
                 else:
                     print("I'm sorry, that is incorrect. Please try again.")
+                    print(show_blanks)
                     self.player.guesses += 1
+            if self.player.guesses == 8:
+                self.game_over()
+                break
+        self.winner()
 
 
     def find_index_position(self, letters, guess):
@@ -66,18 +72,32 @@ class Game:
         for (index, guess) in zip(index_pos, guess_in_word):
             show_blanks[index] = guess
 
-    def game_over(self, guesses):
-        while guesses == 8:
-            playing = False
-            print("Game over")
+    def game_over(self):
+        playing = False
+        print("Game over")
+        play_again = input("Would you like to play again? Y or N?")
+        if play_again == "y":
+            Game()
+        else:
+            exit()
+            
+    def winner(self):
+        playing = False
+        print("You are the WINNER!!!")
+        play_again = input("Would you like to play again? Y or N?")
+        if play_again == "y":
+            Game()
+        else:
+            exit()
+
 # while self.guess > 0:
 
     # start game CHECK
     # generate random word CHECK
-    # show blanks/# of letters
+    # show blanks/# of letters CHECK
     # track and show remaining guesses
-    # update blanks to show correct guesses
-    # end game
+    # update blanks to show correct guesses CHECK
+    # end game CHECK
 
 
 class Player:
@@ -90,7 +110,7 @@ class Player:
 
     # set # of guesses to 8 - CHECK
     # choose difficulty
-    # guess letters
+    # guess letters CHECK
 
 
 game = Game()
